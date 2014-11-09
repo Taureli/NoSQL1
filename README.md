@@ -9,5 +9,6 @@
 
 ####Przygotowanie
 Przed zimportowaniem pliku Train.csv należy go przerobić za pomocą skryptu 2unix.sh:
+![screenshot](http://i.imgur.com/kBUl4oI.png)
 
 Po wykonaniu konwersji, nowy plik należy zimportować do bazy Mongo:
