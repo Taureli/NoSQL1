@@ -24,7 +24,7 @@ db.open(function(err){
    }  else {
        console.log("Połączono z serwerem");
 
-       db.collection('medium', function(err, collect){
+       db.collection('Train', function(err, collect){
           if(err){
               console.log(err);
               db.close();
