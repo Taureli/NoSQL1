@@ -1,0 +1,7 @@
+{
+  "name": "tags-nosql",
+  "version": "0.0.1",
+  "dependencies": {
+    "mongodb": "~2.0"
+  }
+}
