@@ -83,3 +83,95 @@ Ostatnim krokiem jest dodanie geo-indeksu:
 ```db.CaliforniaGeo.ensureIndex({"loc" : "2dsphere"})```
 
 ####Zapytania
+####1 . Zapytanie z użyciem $near
+
+```
+var origin = { 
+    "type" : "Point", 
+    "coordinates" : [ -121.914125,  37.713263 ] 
+};
+
+db.CaliforniaGeo.find({ loc: {$near: {$geometry: origin, $maxDistance: 1000}} })
+```
+
+[Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/1near.geojson)
+
+####2 . Zapytanie z użyciem $geoWtihin i $center
+
+```
+db.CaliforniaGeo.find({
+  loc: {$geoWithin : { $center : [ [ -114.494115,  32.823100 ] , 0.1 ] } } 
+}).forEach(function(dane){print(dane.loc);})
+```
+
+[Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/2geowithin.geojson)
+
+####3 . Zapytanie z użyciem $near dla takich samych danych jak w podpunkcie 2.
+
+```
+var origin = { 
+    "type" : "Point", 
+    "coordinates" : [ -114.494115,  32.823100 ] 
+};
+
+db.CaliforniaGeo.find({ loc: {$near: {$geometry: origin, $maxDistance: 10000}} })
+```
+
+[Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/3near.geojson)
+
+####4 . Zapytanie z użyciem $geoWithin w obszarze zdefiniowanym Polygonami
+
+```
+var region = { 
+    "type" : "Polygon", 
+    "coordinates" : 
+    [ [ 
+        [ -120.6 , 35 ], 
+        [ -120.6 , 34.95 ], 
+        [ -120.55 , 34.95    ], 
+        [ -120.55 , 35    ], 
+        [ -120.6 , 35 ] 
+    ] ]
+};
+
+db.CaliforniaGeo.find({ loc : { $geoWithin : { $geometry : region } } })
+```
+
+[Mapka obrazująca region poszukiwań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/4region.geojson)
+[Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/4geowithin.geojson)
+
+####5 . Zapytanie z użyciem $geoIntersects w obszarze zdefiniowanym Polygonami, takim samym jak w podpunkcie 4.
+
+```
+var region = { 
+    "type" : "Polygon", 
+    "coordinates" : 
+    [ [ 
+        [ -120.6 , 35 ], 
+        [ -120.6 , 34.95 ], 
+        [ -120.55 , 34.95    ], 
+        [ -120.55 , 35    ], 
+        [ -120.6 , 35 ] 
+    ] ]
+};
+
+db.CaliforniaGeo.find({ loc : { $geoIntersects : { $geometry : region } } }).forEach(function(dane){print(dane.loc);})
+```
+
+[Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/5geointersects.geojson)
+
+####6 . Zapytanie z użyciem $geoIntersects na linii pomiędzy dwoma punktami
+
+```
+var line = { 
+  "type": "LineString", 
+  "coordinates": 
+    [
+      [ -122.56 , 37.5 ] , [ -122.35 , 37.55 ]
+    ]
+};
+
+db.CaliforniaGeo.find({ loc : { $geoIntersects : { $geometry : line } } }).forEach(function(dane){print(dane.loc);})
+```
+
+[Mapka obrazująca region poszukiwań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/6line.geojson)
