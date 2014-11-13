@@ -1,18 +1,27 @@
 #Jakub Karolczak
 
+> Spis zadań:
+> * [1a](#1a)
+> * [1b](#1b)
+> * [1c](#1c)
+> * [1d](#1d)
+>  - [Przygotowanie](#przygotowanie-1)
+>  - [Zapytania](#zapytania)
+
 ###Sprzęt:
 * Procesor Intel Core i3-2120 3.3GHz
 * Dysk HDD
 * 12 GB pamięci DDR III
 * System Windows 8.1
 
+#1a
 
 ####Przygotowanie
 Przed zimportowaniem pliku Train.csv należy go przerobić za pomocą skryptu 2unix.sh uruchomionego poprzez Cygwina:
 
 ![konwersja](http://i.imgur.com/kBUl4oI.png)
 
-#1a
+####Importowanie pliku do bazy
 
 Po wykonaniu konwersji, nowy plik należy zimportować do bazy Mongo, wpisując poniższą komendę w PowerShellu:
 
@@ -49,7 +58,7 @@ Zużycie dysku było niewielkie a procesora utrzymywało się w okolicy 40%. Co 
 ![dyskCPU2](http://i.imgur.com/Ao41fLh.png)
 
 #1d
-####Przygotowanie
+###Przygotowanie
 Do zadania wykorzystałem bazę z nazwami geograficznymi miejsc znajdujących się w stanie California. [Źródło](http://geonames.usgs.gov/domestic/download_data.htm).
 Dane w bazie porozdzielane są znakami '|', które zamieniłem na przecinki za pomocą polecenia:
 
@@ -82,7 +91,7 @@ Ostatnim krokiem jest dodanie geo-indeksu:
 
 ```db.CaliforniaGeo.ensureIndex({"loc" : "2dsphere"})```
 
-####Zapytania
+###Zapytania
 ####1 . Zapytanie z użyciem $near
 
 ```
@@ -94,6 +103,8 @@ var origin = {
 db.CaliforniaGeo.find({ loc: {$near: {$geometry: origin, $maxDistance: 1000}} })
 ```
 
+W wyniku zapytania zwrócono 9 rekordów.
+
 [Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/1near.geojson)
 
 ####2 . Zapytanie z użyciem $geoWtihin i $center
@@ -103,6 +114,8 @@ db.CaliforniaGeo.find({
   loc: {$geoWithin : { $center : [ [ -114.494115,  32.823100 ] , 0.1 ] } } 
 }).forEach(function(dane){print(dane.loc);})
 ```
+
+W wyniku zapytania zwrócono 26 rekordów.
 
 [Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/2geowithin.geojson)
 
@@ -116,6 +129,8 @@ var origin = {
 
 db.CaliforniaGeo.find({ loc: {$near: {$geometry: origin, $maxDistance: 10000}} })
 ```
+
+W wyniku zapytania zwrócono 25 rekordów.
 
 [Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/3near.geojson)
 
@@ -136,6 +151,8 @@ var region = {
 
 db.CaliforniaGeo.find({ loc : { $geoWithin : { $geometry : region } } })
 ```
+
+W wyniku zapytania zwrócono 14 rekordów.
 
 [Mapka obrazująca region poszukiwań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/4region.geojson)
 [Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/4geowithin.geojson)
@@ -158,6 +175,8 @@ var region = {
 db.CaliforniaGeo.find({ loc : { $geoIntersects : { $geometry : region } } }).forEach(function(dane){print(dane.loc);})
 ```
 
+W wyniku zapytania zwrócono 14 rekordów.
+
 [Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/5geointersects.geojson)
 
 ####6 . Zapytanie z użyciem $geoIntersects na linii pomiędzy dwoma punktami
@@ -173,5 +192,7 @@ var line = {
 
 db.CaliforniaGeo.find({ loc : { $geoIntersects : { $geometry : line } } }).forEach(function(dane){print(dane.loc);})
 ```
+
+Po kilkunastu próbach na różnych współrzędnych dla obu punktów, nie udało mi się znaleźć punktu przecinającego powstałą linię, więc w wyniku powyższego zapytania zwrócono 0 rekordów.
 
 [Mapka obrazująca region poszukiwań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/6line.geojson)
