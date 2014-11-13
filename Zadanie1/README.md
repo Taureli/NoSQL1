@@ -60,6 +60,7 @@ Zużycie dysku było niewielkie a procesora utrzymywało się w okolicy 40%. Co 
 #1d
 ###Przygotowanie
 Do zadania wykorzystałem bazę z nazwami geograficznymi miejsc znajdujących się w stanie California. [Źródło](http://geonames.usgs.gov/domestic/download_data.htm).
+
 Dane w bazie porozdzielane są znakami '|', które zamieniłem na przecinki za pomocą polecenia:
 
 ```cat CA_Features_20141005.txt | tr "|" "," > CAReady.txt```
@@ -71,6 +72,7 @@ Następnie zaimportowałem dane do bazy poleceniem:
 ![import2](http://i.imgur.com/c50mNUp.png)
 
 Kolejnym krokiem była zamiana wszystkich danych na GeoJSONy i przy okazji pozbycie się niektórych niepotrzebnych\błędnych informacji. Wykorzystałem do tego [prosty skrypt napisany w języku JavaScript](https://github.com/Taureli/NoSQL1/blob/master/1d/geojson-convert.js).
+
 Skrypt uruchamiany jest poprzez polecenie:
 
 ```time mongo test geojson-converter.js```
@@ -155,6 +157,7 @@ db.CaliforniaGeo.find({ loc : { $geoWithin : { $geometry : region } } })
 W wyniku zapytania zwrócono 14 rekordów.
 
 [Mapka obrazująca region poszukiwań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/4region.geojson)
+
 [Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/4geowithin.geojson)
 
 ####5 . Zapytanie z użyciem $geoIntersects w obszarze zdefiniowanym Polygonami, takim samym jak w podpunkcie 4.
