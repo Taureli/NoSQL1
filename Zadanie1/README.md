@@ -17,7 +17,7 @@
 #1a
 
 ####Przygotowanie
-Przed zimportowaniem pliku Train.csv należy go przerobić za pomocą skryptu 2unix.sh uruchomionego poprzez Cygwina:
+Przed zimportowaniem pliku Train.csv należy go przerobić za pomocą skryptu [2unix.sh](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1a/2unix.sh) uruchomionego poprzez Cygwina:
 
 ![konwersja](http://i.imgur.com/kBUl4oI.png)
 
