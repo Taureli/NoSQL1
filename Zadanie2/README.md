@@ -1,5 +1,15 @@
 #Jakub Karolczak
 
+> Spis zadań:
+> * [Przygotowanie](#przygotowanie)
+> * [Agregacje](#agregacje)
+>  * [Najpopularniejsze seriale](#1-najpopularniejsze-seriale)
+>  * [Najczęściej komentowane filmy](#2-najczęściej-komentowane-filmy)
+>  * [Najlepsze tytuły](#3-najlepsze-tytuły)
+>  * [Użytkownicy, którzy najwięcej lubią](#4-użytkownicy-którzy-najwięcej-lubią)
+>  * [Reżyserzy znielubianych filmów](#5-reżyserzy-znielubianych-filmów)
+
+
 #Przygotowanie
 Do tego zadania wykorzystałem bazę GetGlue sample, zawierającą 19.831.300 JSONów. [Źródło](getglue-data.s3.amazonaws.com/getglue_sample.tar.gz).
 
@@ -16,7 +26,11 @@ Aby upewnić się czy na pewno wszystkie dane zostały zaimportowane, wykorzysta
 ![count](http://i.imgur.com/Rh0NO29.png)
 
 #Agregacje
-Kod programu z agregacjami: [Node.js](AggregJS/AggregJS.js).
+Kody programów z agregacjami: 
+* [Node.js](AggregJS/AggregJS.js)
+* [Mongo Shell](AggregShell/AggregShell.js)
+
+Kody zamieszczone w poniższej dokumentacji napisane zostały przy użyciu Node.js.
 
 ###1. Najpopularniejsze seriale
 Wypisuje 10 seriali, których tytuły najczęściej pojawiały się w bazie.
