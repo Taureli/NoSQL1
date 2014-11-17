@@ -4,7 +4,7 @@
 
 var MongoClient = require('mongodb').MongoClient;
 
-MongoClient.connect("mongodb:localhost:27017/imdb", function(err, db){
+MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
    if(err){
        console.log(err);
    } else {
