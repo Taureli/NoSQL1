@@ -1,9 +1,9 @@
 #Jakub Karolczak
 
 #Przygotowanie
-Do tego zadania wykorzysta³em bazê GetGlue sample, zawieraj¹c¹ 19.831.300 JSONów. [ród³o](getglue-data.s3.amazonaws.com/getglue_sample.tar.gz).
+Do tego zadania wykorzystaÅ‚em bazÄ™ GetGlue sample, zawierajÄ…cÄ… 19.831.300 JSONÃ³w. [Å¹rÃ³dÅ‚o](getglue-data.s3.amazonaws.com/getglue_sample.tar.gz).
 
-Dane zaimportowa³em do bazy Mongo za pomoc¹ poni¿szej komendy:
+Dane zaimportowaÅ‚em do bazy Mongo za pomocÄ… poniÅ¼szej komendy:
 
 ```time mongoimport --type json -d imdb -c imbd --file getglue_sample.json```
 
@@ -11,15 +11,15 @@ Czas wykonania operacji:
 
 ![import](http://i.imgur.com/s7vvLa7.png)
 
-Aby upewniæ siê czy na pewno wszystkie dane zosta³y zaimportowane, wykorzysta³em funkcjê count() w roboMongo:
+Aby upewniÄ‡ siÄ™ czy na pewno wszystkie dane zostaÅ‚y zaimportowane, wykorzystaÅ‚em funkcjÄ™ count() w roboMongo:
 
 ![count](http://i.imgur.com/Rh0NO29.png)
 
 #Agregacje
-Kod programu z agregacjami: Node.js .
+Kod programu z agregacjami: [Node.js](AggregJS/AggregJS.js).
 
 ###1. Najpopularniejsze seriale
-Wypisuje 10 seriali, których tytu³y najczêœciej pojawia³y siê w bazie.
+Wypisuje 10 seriali, ktÃ³rych tytuÅ‚y najczÄ™Å›ciej pojawiaÅ‚y siÄ™ w bazie.
 
 Kod z zapytaniem:
 
@@ -36,7 +36,7 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 		{ $sort: {count: -1} },
 		{ $limit : 10}
 	], function(err, result){
-        console.log("\n 1 - Najpopularniejsze seriale (Najczêœciej pojawiaj¹ce siê)");
+        console.log("\n 1 - Najpopularniejsze seriale (NajczÄ™Å›ciej pojawiajÄ…ce siÄ™)");
         console.log(result);
         db.close();
     });
@@ -47,7 +47,7 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 Wynik:
 
 ```
- 1 - Najpopularniejsze seriale (Najczêœciej pojawiaj¹ce siê)
+ 1 - Najpopularniejsze seriale (NajczÄ™Å›ciej pojawiajÄ…ce siÄ™)
 [ { _id: 'The Big Bang Theory', count: 260686 },
   { _id: 'Fringe', count: 187910 },
   { _id: 'Nikita', count: 150683 },
@@ -60,8 +60,8 @@ Wynik:
   { _id: 'Once Upon a Time', count: 99515 } ]
 ```
 
-###2. Najczêœciej komentowane filmy
-Wypisuje 10 filmów z najwiêksz¹ iloœci¹ komentarzy.
+###2. NajczÄ™Å›ciej komentowane filmy
+Wypisuje 10 filmÃ³w z najwiÄ™kszÄ… iloÅ›ciÄ… komentarzy.
 
 Kod z zapytaniem:
 
@@ -78,7 +78,7 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
            { $sort: { count: -1 } },
            { $limit: 10 }
        ], function(err, result){
-           console.log("\n 2 - Filmy z najwiêksz¹ iloœci¹ komentarzy");
+           console.log("\n 2 - Filmy z najwiÄ™kszÄ… iloÅ›ciÄ… komentarzy");
            console.log(result);
            db.close();
        });
@@ -89,7 +89,7 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 Wynik:
 
 ```
- 2 - Filmy z najwiêksz¹ iloœci¹ komentarzy
+ 2 - Filmy z najwiÄ™kszÄ… iloÅ›ciÄ… komentarzy
 [ { _id: 'Slumdog Millionaire', count: 26 },
   { _id: 'Harry Potter and the Deathly Hallows: Part II', count: 13 },
   { _id: 'Avatar', count: 10 },
@@ -102,8 +102,8 @@ Wynik:
   { _id: 'The Smurfs', count: 6 } ]
 ```
 
-###3. Najlepsze tytu³y
-Wypisuje 10 filmów/seriali z najwiêksz¹ iloœci¹ polubieñ.
+###3. Najlepsze tytuÅ‚y
+Wypisuje 10 filmÃ³w/seriali z najwiÄ™kszÄ… iloÅ›ciÄ… polubieÅ„.
 
 Kod z zapytaniem:
 
@@ -120,7 +120,7 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
            { $sort: { count: -1 } },
            { $limit: 10 }
         ], function(err, result){
-           console.log("\n 3 - Najlepsze filmy/seriale (Z najwiêksz¹ iloœci¹ polubieñ)");
+           console.log("\n 3 - Najlepsze filmy/seriale (Z najwiÄ™kszÄ… iloÅ›ciÄ… polubieÅ„)");
            console.log(result);
            db.close();
        });
@@ -131,7 +131,7 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 Wynik:
 
 ```
- 3 - Najlepsze filmy/seriale (Z najwiêksz¹ iloœci¹ polubieñ)
+ 3 - Najlepsze filmy/seriale (Z najwiÄ™kszÄ… iloÅ›ciÄ… polubieÅ„)
 [ { _id: 'The Big Bang Theory', count: 29757 },
   { _id: 'The Simpsons', count: 28297 },
   { _id: 'Family Guy', count: 28120 },
@@ -144,8 +144,8 @@ Wynik:
   { _id: 'The Hangover', count: 18631 } ]
 ```
 
-###4. U¿ytkownicy, którzy najwiêcej lubi¹
-Wypisuje 10 u¿ytkowników z najwiêksz¹ iloœci¹ rozdanych polubieñ.
+###4. UÅ¼ytkownicy, ktÃ³rzy najwiÄ™cej lubiÄ…
+Wypisuje 10 uÅ¼ytkownikÃ³w z najwiÄ™kszÄ… iloÅ›ciÄ… rozdanych polubieÅ„.
 
 Kod z zapytaniem:
 
@@ -162,7 +162,7 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
            { $sort: { count: -1 } },
            { $limit: 10 }
        ], function(err, result){
-           console.log("\n 4 - U¿ytkownicy z najwiêksz¹ iloœci¹ rozdanych polubieñ");
+           console.log("\n 4 - UÅ¼ytkownicy z najwiÄ™kszÄ… iloÅ›ciÄ… rozdanych polubieÅ„");
            console.log(result);
            db.close();
        });
@@ -173,7 +173,7 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 Wynik:
 
 ```
- 4 - U¿ytkownicy z najwiêksz¹ iloœci¹ rozdanych polubieñ
+ 4 - UÅ¼ytkownicy z najwiÄ™kszÄ… iloÅ›ciÄ… rozdanych polubieÅ„
 [ { _id: 'jesusvarelaacosta', count: 13562 },
   { _id: 'gluemanblues', count: 12932 },
   { _id: 'johnnym2001', count: 11436 },
@@ -186,8 +186,8 @@ Wynik:
   { _id: 'kevinjloria', count: 7436 } ]
 ```
 
-###5. Re¿yserzy znielubianych filmów
-Wypisuje 10 re¿yserów, których produkcje otrzyma³y najwiêcej znielubieñ.
+###5. ReÅ¼yserzy znielubianych filmÃ³w
+Wypisuje 10 reÅ¼yserÃ³w, ktÃ³rych produkcje otrzymaÅ‚y najwiÄ™cej znielubieÅ„.
 
 Kod z zapytaniem:
 
@@ -204,7 +204,7 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
            { $sort: { count: -1 } },
            { $limit: 10 }
        ], function(err, result){
-           console.log("\n 5 - Re¿yserzy, których produkcje otrzyma³y najwiêcej znielubieñ");
+           console.log("\n 5 - ReÅ¼yserzy, ktÃ³rych produkcje otrzymaÅ‚y najwiÄ™cej znielubieÅ„");
            console.log(result);
            db.close();
        });
@@ -215,7 +215,7 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 Wynik:
 
 ```
- 5 - Re¿yserzy, których produkcje otrzyma³y najwiêcej znielubieñ
+ 5 - ReÅ¼yserzy, ktÃ³rych produkcje otrzymaÅ‚y najwiÄ™cej znielubieÅ„
 [ { _id: null, count: 209868 },
   { _id: 'steven spielberg', count: 3427 },
   { _id: 'tim burton', count: 3229 },
