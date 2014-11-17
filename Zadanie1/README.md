@@ -17,7 +17,7 @@
 #1a
 
 ####Przygotowanie
-Przed zimportowaniem pliku Train.csv należy go przerobić za pomocą skryptu [2unix.sh](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1a/2unix.sh) uruchomionego poprzez Cygwina:
+Przed zimportowaniem pliku Train.csv należy go przerobić za pomocą skryptu [2unix.sh](1a/2unix.sh) uruchomionego poprzez Cygwina:
 
 ![konwersja](http://i.imgur.com/kBUl4oI.png)
 
@@ -44,7 +44,7 @@ Zliczenie liczby zimportowanych obiektów w programie Robomongo:
 ![zliczenie](http://i.imgur.com/X838ehR.png)
 
 #1c
-Do zamiany i zliczenia tagów wykorzystałem [program napisany w języku JavaScript](https://github.com/Taureli/NoSQL1/blob/master/1c/tags.js).
+Do zamiany i zliczenia tagów wykorzystałem [program napisany w języku JavaScript](1c/tags.js).
 
 ![tagi](http://i.imgur.com/94szLaX.png)
 
@@ -71,7 +71,7 @@ Następnie zaimportowałem dane do bazy poleceniem:
 
 ![import2](http://i.imgur.com/c50mNUp.png)
 
-Kolejnym krokiem była zamiana wszystkich danych na GeoJSONy i przy okazji pozbycie się niektórych niepotrzebnych\błędnych informacji. Wykorzystałem do tego [prosty skrypt napisany w języku JavaScript](https://github.com/Taureli/NoSQL1/blob/master/1d/geojson-convert.js).
+Kolejnym krokiem była zamiana wszystkich danych na GeoJSONy i przy okazji pozbycie się niektórych niepotrzebnych\błędnych informacji. Wykorzystałem do tego [prosty skrypt napisany w języku JavaScript](1d/geojson-convert.js).
 
 Skrypt uruchamiany jest poprzez polecenie:
 
@@ -107,7 +107,7 @@ db.CaliforniaGeo.find({ loc: {$near: {$geometry: origin, $maxDistance: 1000}} })
 
 W wyniku zapytania zwrócono 9 rekordów.
 
-[Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/1near.geojson)
+[Mapka z wynikiem zapytań](1d/geojsons/1near.geojson)
 
 ####2 . Zapytanie z użyciem $geoWtihin i $center
 
@@ -119,7 +119,7 @@ db.CaliforniaGeo.find({
 
 W wyniku zapytania zwrócono 26 rekordów.
 
-[Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/2geowithin.geojson)
+[Mapka z wynikiem zapytań](1d/geojsons/2geowithin.geojson)
 
 ####3 . Zapytanie z użyciem $near dla takich samych danych jak w podpunkcie 2.
 
@@ -134,7 +134,7 @@ db.CaliforniaGeo.find({ loc: {$near: {$geometry: origin, $maxDistance: 10000}} }
 
 W wyniku zapytania zwrócono 25 rekordów.
 
-[Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/3near.geojson)
+[Mapka z wynikiem zapytań](1d/geojsons/3near.geojson)
 
 ####4 . Zapytanie z użyciem $geoWithin w obszarze zdefiniowanym Polygonami
 
@@ -156,9 +156,9 @@ db.CaliforniaGeo.find({ loc : { $geoWithin : { $geometry : region } } })
 
 W wyniku zapytania zwrócono 14 rekordów.
 
-[Mapka obrazująca region poszukiwań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/4region.geojson)
+[Mapka obrazująca region poszukiwań](1d/geojsons/4region.geojson)
 
-[Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/4geowithin.geojson)
+[Mapka z wynikiem zapytań](1d/geojsons/4geowithin.geojson)
 
 ####5 . Zapytanie z użyciem $geoIntersects w obszarze zdefiniowanym Polygonami, takim samym jak w podpunkcie 4.
 
@@ -180,7 +180,7 @@ db.CaliforniaGeo.find({ loc : { $geoIntersects : { $geometry : region } } }).for
 
 W wyniku zapytania zwrócono 14 rekordów.
 
-[Mapka z wynikiem zapytań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/5geointersects.geojson)
+[Mapka z wynikiem zapytań](1d/geojsons/5geointersects.geojson)
 
 ####6 . Zapytanie z użyciem $geoIntersects na linii pomiędzy dwoma punktami
 
@@ -198,4 +198,4 @@ db.CaliforniaGeo.find({ loc : { $geoIntersects : { $geometry : line } } }).forEa
 
 Po kilkunastu próbach na różnych współrzędnych dla obu punktów, nie udało mi się znaleźć punktu przecinającego powstałą linię, więc w wyniku powyższego zapytania zwrócono 0 rekordów.
 
-[Mapka obrazująca region poszukiwań](https://github.com/Taureli/NoSQL1/blob/master/Zadanie1/1d/geojsons/6line.geojson)
+[Mapka obrazująca region poszukiwań](1d/geojsons/6line.geojson)
