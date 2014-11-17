@@ -60,6 +60,10 @@ Wynik:
   { _id: 'Once Upon a Time', count: 99515 } ]
 ```
 
+Wykres:
+
+![wyk1](http://i.imgur.com/VPDI5kU.png)
+
 ###2. Najczęściej komentowane filmy
 Wypisuje 10 filmów z największą ilością komentarzy.
 
@@ -101,6 +105,10 @@ Wynik:
   { _id: 'Super 8', count: 7 },
   { _id: 'The Smurfs', count: 6 } ]
 ```
+
+Wykres:
+
+![wyk2](http://i.imgur.com/zSPxjzN.png)
 
 ###3. Najlepsze tytuły
 Wypisuje 10 filmów/seriali z największą ilością polubień.
@@ -144,6 +152,10 @@ Wynik:
   { _id: 'The Hangover', count: 18631 } ]
 ```
 
+Wykres:
+
+![wyk3](http://i.imgur.com/1eGAgyt.png)
+
 ###4. Użytkownicy, którzy najwięcej lubią
 Wypisuje 10 użytkowników z największą ilością rozdanych polubień.
 
@@ -186,6 +198,10 @@ Wynik:
   { _id: 'kevinjloria', count: 7436 } ]
 ```
 
+Wykres:
+
+![wyk4](http://i.imgur.com/8ELa9h8.png)
+
 ###5. Reżyserzy znielubianych filmów
 Wypisuje 10 reżyserów, których produkcje otrzymały najwięcej znielubień.
 
@@ -227,3 +243,11 @@ Wynik:
   { _id: 'roland emmerich', count: 1755 },
   { _id: 'ron howard', count: 1748 } ]
 ```
+
+Wykres (z pominiętą wartością 'null'):
+
+![wyk5](http://i.imgur.com/IlxLYuy.png)
+
+
+---
+> Wykresy wygenerowane za pomocą strony http://www.onlinecharttool.com
