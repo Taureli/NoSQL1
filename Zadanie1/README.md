@@ -10,7 +10,7 @@
 
 ###Sprzęt:
 * Procesor Intel Core i3-2120 3.3GHz
-* Dysk HDD
+* Dysk HDD 7200 RPM, 8MB Cache, SATA 3.0Gb/s 
 * 12 GB pamięci DDR III
 * System Windows 8.1
 
