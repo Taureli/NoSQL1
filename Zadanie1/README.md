@@ -2,11 +2,14 @@
 
 > Spis zadań:
 > * [1a](#1a)
+>  * [MongoDb](#mongodb)
+>  * [PostgreSQL](#postgresql)
+>  * [Wnioski](#wnioski)
 > * [1b](#1b)
 > * [1c](#1c)
 > * [1d](#1d)
->  - [Przygotowanie](#przygotowanie-1)
->  - [Zapytania](#zapytania)
+>  * [Przygotowanie](#przygotowanie-1)
+>  * [Zapytania](#zapytania)
 
 ###Sprzęt:
 * Procesor Intel Core i3-2120 3.3GHz
@@ -16,12 +19,14 @@
 
 #1a
 
-####Przygotowanie
+###Przygotowanie
 Przed zimportowaniem pliku Train.csv należy go przerobić za pomocą skryptu [2unix.sh](1a/2unix.sh) uruchomionego poprzez Cygwina:
 
 ![konwersja](http://i.imgur.com/kBUl4oI.png)
 
-####Importowanie pliku do bazy
+##MongoDB
+
+###Importowanie pliku do bazy
 
 Po wykonaniu konwersji, nowy plik należy zimportować do bazy Mongo, wpisując poniższą komendę w PowerShellu:
 
@@ -29,7 +34,7 @@ Po wykonaniu konwersji, nowy plik należy zimportować do bazy Mongo, wpisując 
 
 ![import](http://i.imgur.com/uxscsgf.png)
 
-#####Obserwacje:
+###Zużycie zasobów:
 W trakcie wykonywania operacji importowania danych ilość wykorzystywanej pamięci powoli i stale wzrastała:
 
 ![pamięć](http://i.imgur.com/7wlBKDK.png)
@@ -37,6 +42,39 @@ W trakcie wykonywania operacji importowania danych ilość wykorzystywanej pami�
 Zużycie dysku niemal przez cały czas wynosiło 100%, a zużycie procesora wahało się pomiędzy 0% a 45%:
 
 ![dyskCPU](http://i.imgur.com/aHgnFhd.png)
+
+##PostgreSQL
+
+Do zaimportowania wykorzystałem [przygotowany wcześniej](#przygotowanie) plik Train.csv.
+
+###Importowanie pliku do bazy
+
+Pierwszą rzeczą jaką należy zrobić, to wpisanie polecenia `\timing` w konsoli postgresa, aby wypisywała czasy wykonywanych zadań.
+
+Następnie należy utworzyć tablicę, do której zapisane zostaną dane, wpisując poniższą komendę:
+
+`create table train(Id text, Title text, Body text, Tags text);`
+
+Ostatnim krokiem przed importem jest wpisanie komendy `\encoding UTF8`, która zmieni kodowanie znaków w bazie.
+
+Bazę importujemy z pliku poniższą komendą:
+
+`copy train(Id,Title,Body, Tags) FROM 'ŚCIEŻKA DO PLIKU' WITH DELIMITER ',' CSV HEADER;`
+
+![importPostgres](http://i.imgur.com/p3LkFDu.png)
+
+###Zużycie zasobów
+
+W trakcie wykonywania operacji importowania danych zużycie pamięci stale utrzymywało się na poziomie 2.8%.
+
+![pamięćPostgres](http://i.imgur.com/Qxi6ohO.png)
+
+Natomiast zużycie procesora wahało się między 16% i 40%, a zużycie dyskuwynosiło niemal stale 100%.
+
+![CPUDyskPostgres](http://i.imgur.com/vlpyQEd.png)
+
+##Wnioski
+Czas operacji importowania danych wynosił w Postgresie około 17,5 minut co daje wynik dłuższy od MongoDB o zaledwie 2 minuty. Jednak zużycie zasobów, zwłaszcza pamięci, wyraźnie się różniło. W Postgresie było ono dość niewielkie i stale utrzymywało się na tym samym poziomie, a w przypadku Mongo stale i powoli wzrastało, pod koniec operacji zapełniając 100% pamięci.
 
 #1b
 Zliczenie liczby zimportowanych obiektów w programie Robomongo:
@@ -48,7 +86,7 @@ Do zamiany i zliczenia tagów wykorzystałem [program napisany w języku JavaScr
 
 ![tagi](http://i.imgur.com/94szLaX.png)
 
-#####Obserwacje:
+###Zużycie zasobów:
 Przez cały czas operacji programu zużycie pamięci powolnie wzrastało:
 
 ![pamięć2](http://i.imgur.com/xMBq535.png)
@@ -58,7 +96,7 @@ Zużycie dysku było niewielkie a procesora utrzymywało się w okolicy 40%. Co 
 ![dyskCPU2](http://i.imgur.com/Ao41fLh.png)
 
 #1d
-###Przygotowanie
+##Przygotowanie
 Do zadania wykorzystałem bazę z nazwami geograficznymi miejsc znajdujących się w stanie California. [Źródło](http://geonames.usgs.gov/domestic/download_data.htm).
 
 Dane w bazie porozdzielane są znakami '|', które zamieniłem na przecinki za pomocą polecenia:
@@ -93,8 +131,8 @@ Ostatnim krokiem jest dodanie geo-indeksu:
 
 ```db.CaliforniaGeo.ensureIndex({"loc" : "2dsphere"})```
 
-###Zapytania
-####1 . Zapytanie z użyciem $near
+##Zapytania
+###1 . Zapytanie z użyciem $near
 
 ```
 var origin = { 
@@ -109,7 +147,7 @@ W wyniku zapytania zwrócono 9 rekordów.
 
 [Mapka z wynikiem zapytań](1d/geojsons/1near.geojson)
 
-####2 . Zapytanie z użyciem $geoWtihin i $center
+###2 . Zapytanie z użyciem $geoWtihin i $center
 
 ```
 db.CaliforniaGeo.find({
@@ -121,7 +159,7 @@ W wyniku zapytania zwrócono 26 rekordów.
 
 [Mapka z wynikiem zapytań](1d/geojsons/2geowithin.geojson)
 
-####3 . Zapytanie z użyciem $near dla takich samych danych jak w podpunkcie 2.
+###3 . Zapytanie z użyciem $near dla takich samych danych jak w podpunkcie 2.
 
 ```
 var origin = { 
@@ -136,7 +174,7 @@ W wyniku zapytania zwrócono 25 rekordów.
 
 [Mapka z wynikiem zapytań](1d/geojsons/3near.geojson)
 
-####4 . Zapytanie z użyciem $geoWithin w obszarze zdefiniowanym Polygonami
+###4 . Zapytanie z użyciem $geoWithin w obszarze zdefiniowanym Polygonami
 
 ```
 var region = { 
@@ -160,7 +198,7 @@ W wyniku zapytania zwrócono 14 rekordów.
 
 [Mapka z wynikiem zapytań](1d/geojsons/4geowithin.geojson)
 
-####5 . Zapytanie z użyciem $geoIntersects w obszarze zdefiniowanym Polygonami, takim samym jak w podpunkcie 4.
+###5 . Zapytanie z użyciem $geoIntersects w obszarze zdefiniowanym Polygonami, takim samym jak w podpunkcie 4.
 
 ```
 var region = { 
@@ -182,7 +220,7 @@ W wyniku zapytania zwrócono 14 rekordów.
 
 [Mapka z wynikiem zapytań](1d/geojsons/5geointersects.geojson)
 
-####6 . Zapytanie z użyciem $geoIntersects na linii pomiędzy dwoma punktami
+###6 . Zapytanie z użyciem $geoIntersects na linii pomiędzy dwoma punktami
 
 ```
 var line = { 
