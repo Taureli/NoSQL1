@@ -58,6 +58,8 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 }
 ```
 
+Czas operacji: `6minut 28sekund`
+
 Wynik:
 
 ```
@@ -103,6 +105,8 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 	
 }
 ```
+
+Czas operacji: `5minut 57sekund`
 
 Wynik:
 
@@ -150,6 +154,8 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 }
 ```
 
+Czas operacji: `5minut 55sekund`
+
 Wynik:
 
 ```
@@ -196,6 +202,8 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 }
 ```
 
+Czas operacji: `5minut 58sekund`
+
 Wynik:
 
 ```
@@ -241,6 +249,8 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 	
 }
 ```
+
+Czas operacji: `6minut 0sekund`
 
 Wynik:
 
