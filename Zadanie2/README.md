@@ -17,9 +17,10 @@ Dane zaimportowałem do bazy Mongo za pomocą poniższej komendy:
 
 ```time mongoimport --type json -d imdb -c imbd --file getglue_sample.json```
 
-Czas wykonania operacji:
+######Czasy wykonywania:
+**2.6.5:**      41m 23s
 
-![import](http://i.imgur.com/s7vvLa7.png)
+**2.8.0-rc0:**  40m 46s
 
 Aby upewnić się czy na pewno wszystkie dane zostały zaimportowane, wykorzystałem funkcję count() w roboMongo:
 
@@ -58,7 +59,10 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 }
 ```
 
-Czas operacji: `6minut 28sekund`
+######Czasy wykonywania:
+**2.6.5:**      6m 28s
+
+**2.8.0-rc0:**  6m 34s
 
 Wynik:
 
@@ -106,7 +110,10 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 }
 ```
 
-Czas operacji: `5minut 57sekund`
+######Czasy wykonywania:
+**2.6.5:**      5m 57s
+
+**2.8.0-rc0:**  5m 51s
 
 Wynik:
 
@@ -154,7 +161,10 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 }
 ```
 
-Czas operacji: `5minut 55sekund`
+######Czasy wykonywania:
+**2.6.5:**      5m 55s
+
+**2.8.0-rc0:**  5m 49s
 
 Wynik:
 
@@ -202,7 +212,10 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 }
 ```
 
-Czas operacji: `5minut 58sekund`
+######Czasy wykonywania:
+**2.6.5:**      5m 58s
+
+**2.8.0-rc0:**  5m 53s
 
 Wynik:
 
@@ -250,7 +263,10 @@ MongoClient.connect("mongodb://localhost:27017/imdb", function(err, db){
 }
 ```
 
-Czas operacji: `6minut 0sekund`
+######Czasy wykonywania:
+**2.6.5:**      6m 0s
+
+**2.8.0-rc0:**  5m 50s
 
 Wynik:
 
