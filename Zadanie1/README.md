@@ -28,11 +28,14 @@ Przed zimportowaniem pliku Train.csv należy go przerobić za pomocą skryptu [2
 
 ###Importowanie pliku do bazy
 
-Po wykonaniu konwersji, nowy plik należy zimportować do bazy Mongo, wpisując poniższą komendę w PowerShellu:
+Po wykonaniu konwersji, nowy plik należy zimportować do bazy Mongo, używając poniższej komendy:
 
-```Measure-Command {mongoimport --type csv -c Train --file .\TrainReady.csv --headerline}```
+```time mongoimport --type csv -c Train --file .\TrainReady.csv --headerline```
 
-![import](http://i.imgur.com/uxscsgf.png)
+######Czasy wykonywania:
+**2.6.5:**      15m 33s
+
+**2.8.0-rc0:**  15m 31s
 
 ###Zużycie zasobów:
 W trakcie wykonywania operacji importowania danych ilość wykorzystywanej pamięci powoli i stale wzrastała:
@@ -42,6 +45,8 @@ W trakcie wykonywania operacji importowania danych ilość wykorzystywanej pami�
 Zużycie dysku niemal przez cały czas wynosiło 100%, a zużycie procesora wahało się pomiędzy 0% a 45%:
 
 ![dyskCPU](http://i.imgur.com/aHgnFhd.png)
+
+> *Dla obu wersji Mongo (2.6.5 oraz 2.8.0-rc0) zużycie zasobów było takie samo*
 
 ##PostgreSQL
 
@@ -86,7 +91,13 @@ Do zamiany i zliczenia tagów wykorzystałem [program napisany w języku JavaScr
 
 ![tagi](http://i.imgur.com/94szLaX.png)
 
+######Czasy wykonywania:
+**2.6.5:**      31m 48s
+
+**2.8.0-rc0:**  29m 26s
+
 ###Zużycie zasobów:
+
 Przez cały czas operacji programu zużycie pamięci powolnie wzrastało:
 
 ![pamięć2](http://i.imgur.com/xMBq535.png)
@@ -94,6 +105,8 @@ Przez cały czas operacji programu zużycie pamięci powolnie wzrastało:
 Zużycie dysku było niewielkie a procesora utrzymywało się w okolicy 40%. Co pewien czas w tym samym momencie zużycie dysku wzrastało do 100% a procesora spadało do zera:
 
 ![dyskCPU2](http://i.imgur.com/Ao41fLh.png)
+
+> *Dla obu wersji Mongo (2.6.5 oraz 2.8.0-rc0) zużycie zasobów było takie samo*
 
 #1d
 ##Przygotowanie
@@ -109,6 +122,11 @@ Następnie zaimportowałem dane do bazy poleceniem:
 
 ![import2](http://i.imgur.com/c50mNUp.png)
 
+######Czasy wykonywania:
+**2.6.5:**      0m 12s
+
+**2.8.0-rc0:**  0m 11s
+
 Kolejnym krokiem była zamiana wszystkich danych na GeoJSONy i przy okazji pozbycie się niektórych niepotrzebnych\błędnych informacji. Wykorzystałem do tego [prosty skrypt napisany w języku JavaScript](1d/geojson-convert.js).
 
 Skrypt uruchamiany jest poprzez polecenie:
@@ -116,6 +134,11 @@ Skrypt uruchamiany jest poprzez polecenie:
 ```time mongo test geojson-converter.js```
 
 ![konwersja2](http://i.imgur.com/wcnPRs9.png)
+
+######Czasy wykonywania:
+**2.6.5:**      0m 52s
+
+**2.8.0-rc0:**  0m 54s
 
 Gotowe obiekty zawierają id, nazwę oraz współrzędne geograficzne:
 
@@ -159,7 +182,7 @@ W wyniku zapytania zwrócono 26 rekordów.
 
 [Mapka z wynikiem zapytań](1d/geojsons/2geowithin.geojson)
 
-###3 . Zapytanie z użyciem $near dla takich samych danych jak w podpunkcie 2.
+###3 . Zapytanie z użyciem $near dla takich samych danych jak w podpunkcie drugim.
 
 ```
 var origin = { 
@@ -198,7 +221,7 @@ W wyniku zapytania zwrócono 14 rekordów.
 
 [Mapka z wynikiem zapytań](1d/geojsons/4geowithin.geojson)
 
-###5 . Zapytanie z użyciem $geoIntersects w obszarze zdefiniowanym Polygonami, takim samym jak w podpunkcie 4.
+###5 . Zapytanie z użyciem $geoIntersects w obszarze zdefiniowanym Polygonami, takim samym jak w podpunkcie czwartym.
 
 ```
 var region = { 
