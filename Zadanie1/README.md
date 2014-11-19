@@ -33,11 +33,14 @@ Po wykonaniu konwersji, nowy plik należy zimportować do bazy Mongo, używając
 ```time mongoimport --type csv -c Train --file .\TrainReady.csv --headerline```
 
 ######Czasy wykonywania:
-**2.6.5:**      15m 33s
-
-**2.8.0-rc0:**  15m 31s
+|Wersja | Czas|
+|:-----:|:---:|
+|2.6.5|15m 33s|
+|2.8.0-rc0|15m 31s|
+|2.8.0-rc1 + wiredTiger|9m 44s|
 
 ###Zużycie zasobów:
+#####Mongo 2.6.5
 W trakcie wykonywania operacji importowania danych ilość wykorzystywanej pamięci powoli i stale wzrastała:
 
 ![pamięć](http://i.imgur.com/7wlBKDK.png)
@@ -46,7 +49,14 @@ Zużycie dysku niemal przez cały czas wynosiło 100%, a zużycie procesora waha
 
 ![dyskCPU](http://i.imgur.com/aHgnFhd.png)
 
-> *Dla obu wersji Mongo (2.6.5 oraz 2.8.0-rc0) zużycie zasobów było takie samo*
+> *Dla wersji Mongo 2.6.5 oraz 2.8.0-rc0 zużycie zasobów było takie samo*
+
+#####Mongo 2.8.0-5c1 + wiredTiger
+Zużycie pamięci było zdecydowanie mniejsze i wzrastało znacznie wolniej niż we wcześniejszych wersjach.
+
+Zużycie procesora było podobne jak wcześniej, natomiast zużycie dysku było nieco mniejsze.
+
+[importWT](http://i.imgur.com/BBmcIjf.png)
 
 ##PostgreSQL
 
@@ -92,11 +102,14 @@ Do zamiany i zliczenia tagów wykorzystałem [program napisany w języku JavaScr
 ![tagi](http://i.imgur.com/94szLaX.png)
 
 ######Czasy wykonywania:
-**2.6.5:**      31m 48s
-
-**2.8.0-rc0:**  29m 26s
+|Wersja | Czas|
+|:-----:|:---:|
+|2.6.5|31m 48s|
+|2.8.0-rc0|29m 26s|
+|2.8.0-rc1 + wiredTiger|36m 22s|
 
 ###Zużycie zasobów:
+#####Mongo 2.6.5
 
 Przez cały czas operacji programu zużycie pamięci powolnie wzrastało:
 
@@ -107,6 +120,12 @@ Zużycie dysku było niewielkie a procesora utrzymywało się w okolicy 40%. Co 
 ![dyskCPU2](http://i.imgur.com/Ao41fLh.png)
 
 > *Dla obu wersji Mongo (2.6.5 oraz 2.8.0-rc0) zużycie zasobów było takie samo*
+
+#####Mongo 2.8.0-rc1 + wiredTiger
+
+Zużycie zasobów było podobne jak we wcześniejszych wersjach, jedynie zużycie pamięci było minimalnie mniejsze.
+
+[dyskCPUWT](http://i.imgur.com/Qcol9zW.png)
 
 #1d
 ##Przygotowanie
@@ -123,9 +142,11 @@ Następnie zaimportowałem dane do bazy poleceniem:
 ![import2](http://i.imgur.com/c50mNUp.png)
 
 ######Czasy wykonywania:
-**2.6.5:**      0m 12s
-
-**2.8.0-rc0:**  0m 11s
+|Wersja | Czas|
+|:-----:|:---:|
+|2.6.5|0m 12s|
+|2.8.0-rc0|0m 11s|
+|2.8.0-rc1 + wiredTiger|0m 6s|
 
 Kolejnym krokiem była zamiana wszystkich danych na GeoJSONy i przy okazji pozbycie się niektórych niepotrzebnych\błędnych informacji. Wykorzystałem do tego [prosty skrypt napisany w języku JavaScript](1d/geojson-convert.js).
 
@@ -136,9 +157,11 @@ Skrypt uruchamiany jest poprzez polecenie:
 ![konwersja2](http://i.imgur.com/wcnPRs9.png)
 
 ######Czasy wykonywania:
-**2.6.5:**      0m 52s
-
-**2.8.0-rc0:**  0m 54s
+|Wersja | Czas|
+|:-----:|:---:|
+|2.6.5|0m 52s|
+|2.8.0-rc0|0m 54s|
+|2.8.0-rc1 + wiredTiger|0m 57s|
 
 Gotowe obiekty zawierają id, nazwę oraz współrzędne geograficzne:
 
